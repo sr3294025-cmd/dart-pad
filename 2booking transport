@@ -1,0 +1,71 @@
+
+import 'package:flutter/material.dart';
+
+void main() => runApp(TransporterApp());
+
+class TransporterApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: TransporterForm(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class TransporterForm extends StatefulWidget {
+  @override
+  _TransporterFormState createState() => _TransporterFormState();
+}
+
+class _TransporterFormState extends State<TransporterForm> {
+  final pickupController = TextEditingController();
+  final dropController = TextEditingController();
+  final noteController = TextEditingController();
+  final fareController = TextEditingController();
+
+  String summary = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Transporter Demo")),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: pickupController,
+              decoration: InputDecoration(labelText: "Pickup Location"),
+            ),
+            TextField(
+              controller: dropController,
+              decoration: InputDecoration(labelText: "Drop Location"),
+            ),
+            TextField(
+              controller: noteController,
+              decoration: InputDecoration(labelText: "Driver Note"),
+            ),
+            TextField(
+              controller: fareController,
+              decoration: InputDecoration(labelText: "Fare (₹)"),
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  summary =
+                      "Pickup: ${pickupController.text}\nDrop: ${dropController.text}\nDriver Note: ${noteController.text}\nFare: ₹${fareController.text}";
+                });
+              },
+              child: Text("Show Summary"),
+            ),
+            SizedBox(height: 20),
+            Text(summary, style: TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
+    );
+  }
+}
